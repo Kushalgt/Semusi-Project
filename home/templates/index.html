@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <title>Semusi Project</title>
+    <style>
+        .heading {
+            color: red;
+            padding: 20px;
+            font-weight: bold;
+            font-size: 60x;
+        }
+        .vertical-text {
+            font-style: italic;
+            writing-mode: vertical-rl; 
+            transform: rotate(180deg);
+            position: absolute;
+            top: 300px; 
+            left: 242px; 
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1000px;
+            height: auto;
+            margin: auto auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        canvas {
+            max-width: 200%;
+            height: auto;
+        }
+        footer {
+            height: 100px;
+            background-color: rgba(5, 5, 5, 0.647);
+            color: white;
+            font-style: italic;
+            padding: 20px;
+            
+        }
+    </style>
+</head>
+<body>
+    <h1 class="heading">Determining ambient Room temperature</h1>
+    <div class="container">
+        <canvas id="myChart"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var data = {
+            labels: [{% for label in labels %}{{ label }}, {% endfor %}],
+            datasets: [{
+                label: 'My Dataset',
+                data: [{% for value in values %}{{ value }}, {% endfor %}],
+                backgroundColor: 'rgba(0, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 2
+            }]
+        };
+        
+        var config = {
+            type: 'line',
+            data: data,
+            options: {
+                scales: {
+                    x: {
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Temperature of battery'
+                        }
+                        {% comment %} beginAtZero: true {% endcomment %}
+                    },
+                    y: {
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Ambient temperature'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+        
+        var myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+    </script>
+    <div class="vertical-text">Local Temperature-></div>
+    <div style="position: absolute; top: 615px; left: 659px; text-align: center;font-style: italic">
+        <p>Temperature of battery-></p>
+    </div>
+    <footer>
+        Readings are recorded at one-hour intervals.
+        <br>
+        <p style=" text-align: center;">So, Room temperature is 33&#8451;</p>
+    </footer>
+</body>
+</html>

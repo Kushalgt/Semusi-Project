@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        
+        <h1 >
+        Determining  ambient Room temperature
+    </h1>
+    <title>Semusi Project</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .vertical-text {
+          writing-mode: vertical-rl; /* vertical right-to-left */
+          transform: rotate(180deg);
+          position: absolute;
+          top: 300px; /* Adjust as needed */
+          left: 350px; /* Adjust as needed */
+        }
+        </style>
+        <body>
+
+            <div class="vertical-text">
+              Local Temperature->
+            </div>
+            
+            </body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Graph Example</h1>
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        var data = {
+            labels: [{% for label in labels %}"{{ label }}", {% endfor %}],
+            datasets: [{
+                label: 'My Dataset',
+                data: [{% for value in values %}{{ value }}, {% endfor %}],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        var config = {
+            type: 'line',
+            data: data,
+            options: {
+                scales: {
+                    x: {
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'X Axis Label'
+                        }
+                    },
+                    y: {
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Y Axis Label'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        var myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+    </script>
+    <div style="position: absolute; top: 550px; left: 659px; text-align: center;">
+        <p>Temperature of battery-> </p>
+    </div>
+    
+</body>
+</html>
+
+
+
